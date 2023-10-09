@@ -1,0 +1,200 @@
+// this is link list question
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+	int info;
+	struct node *link;
+};
+struct node *head,*ptr,*pre,*info,*temp;
+void create(){
+	int val;
+    printf("Enter the Element : ");
+    scanf("%d",&val);
+    if(head->link==NULL){
+
+    temp=(struct node *)malloc(sizeof(struct node));
+	temp->info=val;
+	temp->link=NULL;
+	head->link=temp;
+	}
+	else{
+		ptr = head->link; // Set ptr to point to the second node
+        while (ptr->link != NULL) {
+            ptr = ptr->link;
+        }
+        // Allocate memory for temp after reaching the last node
+        temp = (struct node *)malloc(sizeof(struct node));
+        temp->info = val;
+        temp->link = NULL;
+        ptr->link = temp;
+
+	}
+}
+insertfirst(){
+	int val;
+    printf("Enter the Element : ");
+    scanf("%d",&val);
+	temp=(struct node *)malloc(sizeof(struct node));
+	temp->info=val;
+	temp->link=head->link;
+	head->link=temp;
+}
+
+void insertlast() {
+	int val;
+    printf("Enter the Element : ");
+    scanf("%d",&val);
+    if (head == NULL) {
+        // If the list is empty, create the initial node using the create function
+        create();
+    } else {
+        ptr = head->link; // Set ptr to point to the second node
+        while (ptr->link != NULL) {
+            ptr = ptr->link;
+        }
+        // Allocate memory for temp after reaching the last node
+        temp = (struct node *)malloc(sizeof(struct node));
+        temp->info = val;
+        temp->link = NULL;
+        ptr->link = temp; // Add the new node after the last node
+    }
+}
+void insertbet(){
+	int val;
+    printf("Enter the Element : ");
+    scanf("%d",&val);
+	int pos;
+	printf("Enter the position : ");
+	scanf("%d",&pos);
+	if (head == NULL) {
+        // If the list is empty, create the initial node using the create function
+        create();
+    } else{
+    	ptr=head->link;
+    	int p=1;
+    	while(p!=pos){
+    		pre=ptr;
+    		ptr=ptr->link;
+    		p++;
+		}temp = (struct node *)malloc(sizeof(struct node));
+		temp->info = val;
+		temp->link = ptr;
+		pre->link=temp;
+	}
+
+}
+deletefirst(){
+	if(head==NULL&&head->link==NULL){
+		printf("Link List is Empty....\n");
+	}
+	else{
+
+	ptr=head->link;
+	head->link=ptr->link;
+	free(ptr);
+}
+}
+deletelast(){
+	if(head==NULL&&head->link==NULL){
+		printf("Link List is Empty....\n");
+	}
+	else{
+
+	ptr=head->link;
+	while (ptr->link != NULL) {
+		pre=ptr;
+        ptr = ptr->link;
+        }
+        pre->link=NULL;	
+        free(ptr);
+}
+}
+deletebet(){
+	if(head==NULL&&head->link==NULL){
+		printf("Link List is Empty....\n");
+	}else{
+
+	int pos;
+	printf("Enter the position : ");
+	scanf("%d",&pos);
+	ptr=head->link;
+	int p=1;
+	while(p!=pos){
+	pre=ptr;
+	ptr=ptr->link;
+	p++;
+	}
+	pre->link=ptr->link;
+	free(ptr);
+}
+}
+printlist(){
+	if(head==NULL&&head->link==NULL){
+		printf("Link List is Empty....\n");
+	}
+	else{
+	printf("Present List is : ");
+	ptr = head->link;
+    while (ptr != NULL) {
+    printf("%d ", ptr->info);
+    ptr = ptr->link;
+    }	
+}
+printf("\n");
+}
+
+
+
+
+int main(){
+	head=(struct node *)malloc(sizeof(struct node));
+	head->link=NULL;
+	head->info=NULL;
+	int ch;
+	do{
+		printf("\n\n\t\t\tLINK LIST MENU\n");
+		printf("1.Create a Node\n");
+		printf("2.Insert a Node at First\n");
+		printf("3.Insert a Node in between\n");
+		printf("4.Insert a Node at last\n");
+		printf("5.Delete First Node\n");
+		printf("6.Delete a Node in between\n");
+		printf("7.Delete the Last Node\n");
+		printf("8.Print the Link List\n");
+		printf("9.Exit...\n");
+		printf("Your Choice : ");
+		scanf("%d",&ch);
+		switch(ch){
+			case 1 : create();
+			        printlist();
+			break;
+			case 2 : insertfirst();
+			printlist();
+			break;
+			case 3 : insertbet();
+			printlist();
+			break;
+			case 4 : insertlast();
+			printlist();
+			break;
+			case 5 : deletefirst();
+			printlist();
+			break;
+			case 6 : deletebet();
+			printlist();
+			break;
+			case 7 : deletelast();
+			printlist();
+			break;
+			case 8 : printlist();
+			break;
+			case 9 : printf("Exiting...");
+			break;
+			default : printf("Invalid Input...");
+		}
+
+	}while(ch!=9);
+	return 0;
+}
