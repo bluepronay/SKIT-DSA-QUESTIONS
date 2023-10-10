@@ -198,3 +198,332 @@ int main(){
 	}while(ch!=9);
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+// Doubly Link List.....
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+struct node
+{
+    int info;
+    struct node *pre;
+    struct node *nex;
+};
+
+struct node *head, *prev, *ptr, *temp;
+void insertlast();
+
+void create()
+{
+    if (head->nex == NULL)
+    {
+        int val;
+        printf("Enter the element : ");
+        scanf("%d", &val);
+        temp = (struct node *)malloc(sizeof(struct node));
+        temp->info = val;
+        temp->nex = NULL;
+        temp->pre = head;
+        head->nex = temp;
+    }
+    else
+    {
+        insertlast();
+    }
+}
+void insertfirst()
+{
+    if (head->nex == NULL)
+    {
+        create();
+    }
+    else
+    {
+        int val;
+        printf("Enter the element : ");
+        scanf("%d", &val);
+        ptr = head->nex;
+        temp = (struct node *)malloc(sizeof(struct node));
+        temp->info = val;
+        temp->nex = ptr;
+        ptr->pre = temp;
+        temp->pre = head;
+        head->nex = temp;
+    }
+}
+
+void print()
+{
+    if (head->nex == NULL)
+    {
+        printf("Link List is Empty....\n");
+    }
+    else
+    {
+        ptr = head->nex;
+        while (ptr != NULL)
+        {
+            printf("%d\t", ptr->info);
+            ptr = ptr->nex;
+        }
+    }
+    getch();
+    printf("\n");
+}
+
+void insertlast()
+{
+    if (head->nex == NULL)
+    {
+        create();
+    }
+    else
+    {
+        int val;
+        printf("Enter the element : ");
+        scanf("%d", &val);
+        ptr = head->nex;
+        while (ptr->nex != NULL)
+        {
+            ptr = ptr->nex;
+        }
+        temp = (struct node *)malloc(sizeof(struct node));
+        temp->info = val;
+        temp->nex = NULL;
+        temp->pre = ptr;
+        ptr->nex = temp;
+    }
+}
+void insertbet()
+{
+    if (head->nex == NULL)
+    {
+        printf("Link List is Empty....\n");
+        getch();
+    }
+    else
+    {
+        int val, pos;
+        printf("Enter the element : ");
+        scanf("%d", &val);
+        printf("Enter the position : ");
+        scanf("%d", &pos);
+
+        if (pos < 1)
+        {
+            printf("Invalid position\n");
+            return;
+        }
+
+        int p = 1;
+        ptr = head->nex;
+        prev = head;
+
+        while (p != pos && ptr != NULL)
+        {
+            prev = ptr;
+            ptr = ptr->nex;
+            p++;
+        }
+
+        temp = (struct node *)malloc(sizeof(struct node));
+        temp->info = val;
+        temp->nex = ptr;
+
+        if (ptr != NULL)
+        {
+            temp->pre = prev;
+            prev->nex = temp;
+            ptr->pre = temp;
+        }
+        else
+        {
+            temp->pre = prev;
+            prev->nex = temp;
+        }
+    }
+}
+
+void delfirst()
+{
+    if (head->nex == NULL)
+    {
+        printf("Link List is Empty....\n");
+    }
+    else
+    {
+        ptr = head->nex;
+        head->nex = ptr->nex;
+        ptr->nex->pre = head;
+        free(ptr);
+    }
+}
+
+void dellast()
+{
+    if (head->nex == NULL)
+    {
+        printf("Link List is Empty....\n");
+    }
+    else
+    {
+        ptr = head->nex;
+        while (ptr->nex != NULL)
+        {
+            prev = ptr;
+            ptr = ptr->nex;
+        }
+        prev->nex = NULL;
+        free(ptr);
+    }
+}
+
+void delbet()
+{
+    if (head->nex == NULL)
+    {
+        printf("Link List is Empty....\n");
+        getch();
+    }
+    else
+    {
+        int pos;
+        printf("Enter the position you want to delete : ");
+        scanf("%d", &pos);
+
+        if (pos < 1)
+        {
+            printf("Invalid position\n");
+            return;
+        }
+
+        int p = 1;
+        ptr = head->nex;
+        prev = head;
+
+        while (p != pos && ptr != NULL)
+        {
+            prev = ptr;
+            ptr = ptr->nex;
+            p++;
+        }
+
+        if (ptr != NULL)
+        {
+            prev->nex = ptr->nex;
+
+            if (ptr->nex != NULL)
+            {
+                ptr->nex->pre = prev;
+            }
+
+            free(ptr);
+        }
+        else
+        {
+            printf("Position not found\n");
+        }
+    }
+}
+
+void rev()
+{
+    if (head->nex == NULL)
+    {
+        printf("Link List is Empty...");
+    }
+    ptr = head->nex;
+    while (ptr->nex != NULL)
+    {
+        ptr = ptr->nex;
+    }
+    while (ptr != head)
+    {
+        printf("%d\t", ptr->info);
+        ptr = ptr->pre;
+    }
+}
+
+int main()
+{
+    head = (struct node *)malloc(sizeof(struct node));
+    head->info = NULL;
+    head->nex = NULL;
+    head->pre = NULL;
+
+    int ch;
+    do
+    {
+        printf("\n\n\t\t\tDOUBLY LINK LIST MENU\n");
+        printf("1.Create a Node\n");
+        printf("2.Insert a Node at First\n");
+        printf("3.Insert a Node in between\n");
+        printf("4.Insert a Node at last\n");
+        printf("5.Delete First Node\n");
+        printf("6.Delete a Node in between\n");
+        printf("7.Delete the Last Node\n");
+        printf("8.Print the Link List\n");
+        printf("9.Print the Reverse Link List\n");
+        printf("10.Exit...\n");
+        printf("Your Choice : ");
+        scanf("%d", &ch);
+        switch (ch)
+        {
+        case 1:
+            create();
+            print();
+            break;
+        case 2:
+            insertfirst();
+            print();
+            break;
+        case 3:
+            insertbet();
+            print();
+            break;
+        case 4:
+            insertlast();
+            print();
+            break;
+        case 5:
+            delfirst();
+            print();
+            break;
+        case 6:
+            delbet();
+            print();
+            break;
+        case 7:
+            dellast();
+            print();
+            break;
+        case 8:
+            print();
+            break;
+        case 9:
+            rev();
+            break;
+        case 10:
+            printf("Exiting...");
+            exit(1);
+            break;
+        default:
+            printf("Invalid Input...");
+        }
+
+    } while (ch != 10);
+
+    return 0;
+}
