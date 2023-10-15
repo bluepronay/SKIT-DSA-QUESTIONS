@@ -527,3 +527,213 @@ int main()
 
     return 0;
 }
+
+
+
+
+
+
+
+
+// This is Circular Link List
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+	int info;
+	struct node *link;
+};
+struct node *head,*ptr,*temp,*pre;
+
+void insertlast();
+
+void create(){
+	if(head->link==NULL){
+	    int val;
+	    printf("Enter the value : ");
+	    scanf("%d",&val);
+		temp=(struct node*)malloc(sizeof(struct node));
+		temp->info=val;
+		temp->link=head;
+		head->link=temp;
+	}
+	else{
+        insertlast();
+	}
+}
+void print(){
+	if(head->link==NULL){
+		printf("Cicular Link List is Empty....");
+	}
+	else{
+		printf("Present Link List is \n");
+		ptr=head->link;
+		while(ptr!=head){
+			printf("%d\t",ptr->info);
+			ptr=ptr->link;
+		}
+	}printf("\n");
+}
+void insertfirst(){
+	if(head->link==NULL){
+		create();
+	}
+	else{
+		int val;
+	    printf("Enter the value : ");
+	    scanf("%d",&val);
+		temp=(struct node*)malloc(sizeof(struct node));
+	    temp->info=val;
+	    temp->link=head->link;
+	    head->link=temp;
+	}
+}
+void insertlast(){
+	if(head->link==NULL){
+		create();
+	}
+	else{
+		int val;
+	    printf("Enter the value : ");
+	    scanf("%d",&val);
+	    ptr=head->link;
+		while(ptr->link!=head){
+		ptr=ptr->link;
+		}
+		temp=(struct node*)malloc(sizeof(struct node));
+		temp->info=val;
+		temp->link=head;
+		ptr->link=temp;	
+	}
+}
+
+void insertbet(){
+	if(head->link==NULL){
+		printf("Circular Link List is Empty...");
+	}
+	else{
+		int val,pos;
+		printf("Enter the element : ");
+		scanf("%d",&val);
+		printf("Enter the position : ");
+		scanf("%d",&pos);
+		if (pos < 1) {
+        printf("Invalid position\n");
+        return;
+        }
+        int p=1;
+        ptr=head->link;
+        while(p!=pos&&ptr->link!=NULL){
+        	pre=ptr;
+        	p++;
+        	ptr=ptr->link;
+		}temp=(struct node*)malloc(sizeof(struct node));
+		temp->info=val;
+		temp->link=ptr;
+		pre->link=temp;
+	}
+}
+
+void delfirst(){
+	if(head->link==NULL){
+		printf(" Circular Link List is Empty...");
+	}
+	else{
+		ptr=head->link;
+		head->link=ptr->link;
+		free(ptr);
+	}
+}
+void dellast(){
+	if(head->link==NULL){
+		printf(" Circular Link List is Empty...");
+	}
+	else{
+		ptr=head->link;
+		while(ptr->link!=head){
+			pre=ptr;
+			ptr=ptr->link;
+		}
+		pre->link=head;
+		free(ptr);
+	}	
+}
+
+void delbet(){
+	if(head->link==NULL){
+		printf(" Circular Link List is Empty...");
+	}
+	else{
+		int pos;
+		printf("Enter the required position to delete : ");
+		scanf("%d",&pos);
+		ptr=head->link;
+		int p=1;
+		while(ptr->link!=head&&p!=pos){
+			pre=ptr;
+			p++;
+			ptr=ptr->link;
+		}pre->link=ptr->link;
+		free(ptr);
+	}
+}
+
+
+
+
+
+
+
+int main(){
+	head=(struct node*)malloc(sizeof(struct node));
+	head->info=0;
+	head->link=NULL;
+	int ch;
+	do{
+		printf("\n\n\t\t\tCIRCULAR LINK LIST MENU\n");
+		printf("1.Create a Node\n");
+		printf("2.Insert a Node at First\n");
+		printf("3.Insert a Node in between\n");
+		printf("4.Insert a Node at last\n");
+		printf("5.Delete First Node\n");
+		printf("6.Delete a Node in between\n");
+		printf("7.Delete the Last Node\n");
+		printf("8.Print the Link List\n");
+		printf("9.Exit...\n");
+		printf("Your Choice : ");
+		scanf("%d",&ch);
+		switch(ch){
+			case 1 : create();
+			        print();
+			break;
+			case 2 : insertfirst();
+			print();
+			break;
+			case 3 : insertbet();
+			print();
+			break;
+			case 4 : insertlast();
+			print();
+			break;
+			case 5 : delfirst();
+			print();
+			break;
+			case 6 : delbet();
+			print();
+			break;
+			case 7 : dellast();
+			print();
+			break;
+			case 8 : print();
+			break;
+			case 9 : printf("Exiting...");
+			         exit(1);
+			break;
+			default : printf("Invalid Input...");
+		}
+		
+	}while(ch!=10);
+	
+	return 0;
+}
