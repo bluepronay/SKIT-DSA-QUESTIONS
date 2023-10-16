@@ -1,0 +1,78 @@
+//Queue using array
+
+#include<stdio.h>
+
+int front=-1,rear=-1,ar[100],n;
+
+void insert(){
+	int val;
+	if(front==-1&&rear==-1){
+	printf("Enter the value : ");
+	scanf("%d",&val);
+		front++;
+		rear++;
+		ar[rear]=val;
+	}else if(rear==n-1){
+		printf("Queue Overflow....");
+	}
+	else{printf("Enter the value : ");
+	scanf("%d",&val);
+		rear++;
+		ar[rear]=val;
+	}
+}
+void del(){
+	if(front>rear){
+		printf("Queue Overflow.....");
+	}else if(front==-1){
+		printf("Queue Underflow...");
+	}else{
+		printf("The value going to be deleted is %d",ar[front]);
+		front++;
+	}
+}
+void print(){
+	if(front>rear||front==n-1){
+		printf("Queue Overflow.....");
+	}else if(front==-1){
+		printf("Queue Underflow...");
+	}else{printf("Present Queue is\n");
+		for(int i=front;i<=rear;i++){
+			printf("%d\t",ar[i]);
+		}
+	}
+	printf("\n");
+}
+int main(){
+	printf("Enter the size of the Queue : ");
+	scanf("%d",&n);
+      int ch;
+do{
+	printf("\n\n\t\t*******QUEUE OPERATIONS USING ARRAY*******");
+	printf("\n\n1.Insert Operation\n");
+	printf("2.Delete Operation\n");
+	printf("3.Print Operation\n");
+	printf("4.Exit...\nYour Choice : ");
+	scanf("%d",&ch);
+	switch(ch){
+		case 1 : 
+		insert();
+		break;
+		case 2 : 
+		del();
+		break;
+		case 3 : 
+		print();
+		break;
+		case 4 : 
+		printf("Exiting....");
+		break;
+		default : printf("Invalid Input....");
+	}
+}while(ch!=4);
+	
+return 0;	
+}
+
+//Queue using  Linked List
+
