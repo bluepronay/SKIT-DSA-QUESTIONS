@@ -74,5 +74,92 @@ do{
 return 0;	
 }
 
+
 //Queue using  Linked List
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct q{
+	int info;
+	struct q *link;
+};
+struct q *head,*ptr,*temp;
+void enqueue(){
+	int val;
+    printf("Enter the Element : ");
+    scanf("%d",&val);
+    if(head->link==NULL){
+	
+    temp=(struct q *)malloc(sizeof(struct q));
+	temp->info=val;
+	temp->link=NULL;
+	head->link=temp;
+	}
+	else{
+		ptr = head->link; // Set ptr to point to the second q
+        while (ptr->link != NULL) {
+            ptr = ptr->link;
+        }
+        // Allocate memory for temp after reaching the last q
+        temp = (struct q *)malloc(sizeof(struct q));
+        temp->info = val;
+        temp->link = NULL;
+        ptr->link = temp;
+		
+	}
+}
+
+void dequeue(){
+	if(head->link==NULL){
+		printf("Queue is Empty....\n");
+	}
+	else{
+	ptr=head->link;
+	head->link=ptr->link;
+	printf("Element Dequeued : %d",ptr->info);
+	free(ptr);
+}
+}
+printq(){
+	if(head->link==NULL){
+		printf("Queue is Empty....\n");
+	}
+	else{
+	printf("Present List is : ");
+	ptr = head->link;
+    while (ptr != NULL) {
+    printf("%d ", ptr->info);
+    ptr = ptr->link;
+    }	
+}
+printf("\n");
+}
+int main(){
+	head=(struct q *)malloc(sizeof(struct q));
+	head->link=NULL;
+	head->info=NULL;
+	int ch;
+	do{
+		printf("\n\n\t\t\t******QUEUE OPERATIONS USING LINK LIST******\n");
+		printf("1.Enqueue Operation\n");
+		printf("2.Dequeue Operation\n");
+		printf("3.Print Queue\n");
+		printf("4.Exit...\n");
+		printf("Your Choice : ");
+		scanf("%d",&ch);
+		switch(ch){
+			case 1 : enqueue();
+			        break;
+			case 2 : dequeue();
+			        break;
+			case 3 : printq();
+			        break;
+			case 4 : printf("Exiting...");
+			        break;
+			default : printf("Invalid Input...");
+		}	
+	}while(ch!=4);
+	return 0;
+}
 
