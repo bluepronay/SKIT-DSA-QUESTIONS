@@ -163,3 +163,182 @@ int main(){
 	return 0;
 }
 
+
+
+
+
+
+
+
+
+
+// By Nawel, Minor Changes.
+
+// Queue using an array
+
+#include <stdio.h>
+
+int front = -1, rear = -1, ar[100], n;
+
+void insert() {
+    int val;
+    if (rear == n - 1) {
+        printf("Queue Overflow....");
+    } else {
+        printf("Enter the value: ");
+        scanf("%d", &val);
+        if (front == -1) {
+            front++;
+        }
+        rear++;
+        ar[rear] = val;
+    }
+}
+
+void del() {
+    if (front == -1) {
+        printf("Queue Underflow...");
+    } else {
+        printf("The value going to be deleted is %d", ar[front]);
+        if (front == rear) {
+            front = rear = -1;
+        } else {
+            front++;
+        }
+    }
+}
+
+void print() {
+    if (front == -1) {
+        printf("Queue Underflow...");
+    } else {
+        printf("Present Queue is:\n");
+        for (int i = front; i <= rear; i++) {
+            printf("%d\t", ar[i]);
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    printf("Enter the size of the Queue: ");
+    scanf("%d", &n);
+    int ch;
+    do {
+        printf("\n\n\t\t*******QUEUE OPERATIONS USING ARRAY*******\n");
+        printf("1. Insert Operation\n");
+        printf("2. Delete Operation\n");
+        printf("3. Print Operation\n");
+        printf("4. Exit...\nYour Choice: ");
+        scanf("%d", &ch);
+        switch (ch) {
+            case 1:
+                insert();
+                break;
+            case 2:
+                del();
+                break;
+            case 3:
+                print();
+                break;
+            case 4:
+                printf("Exiting....");
+                break;
+            default:
+                printf("Invalid Input....");
+        }
+    } while (ch != 4);
+
+    return 0;
+}
+
+// Queue using Linked List
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int info;
+    struct Node *link;
+};
+
+struct Node *frontLL = NULL, *ptr, *temp;
+
+void enqueue() {
+    int val;
+    printf("Enter the Element: ");
+    scanf("%d", &val);
+    if (frontLL == NULL) {
+        temp = (struct Node *)malloc(sizeof(struct Node));
+        temp->info = val;
+        temp->link = NULL;
+        frontLL = temp;
+    } else {
+        ptr = frontLL;
+        while (ptr->link != NULL) {
+            ptr = ptr->link;
+        }
+        temp = (struct Node *)malloc(sizeof(struct Node));
+        temp->info = val;
+        temp->link = NULL;
+        ptr->link = temp;
+    }
+}
+
+void dequeue() {
+    if (frontLL == NULL) {
+        printf("Queue Underflow...");
+    } else {
+        ptr = frontLL;
+        frontLL = ptr->link;
+        printf("Element Dequeued: %d", ptr->info);
+        free(ptr);
+    }
+}
+
+void printq() {
+    if (frontLL == NULL) {
+        printf("Queue Underflow...");
+    } else {
+        printf("Present Queue is: ");
+        ptr = frontLL;
+        while (ptr != NULL) {
+            printf("%d\t", ptr->info);
+            ptr = ptr->link;
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int ch;
+    do {
+        printf("\n\n\t\t\t******QUEUE OPERATIONS USING LINKED LIST******\n");
+        printf("1. Enqueue Operation\n");
+        printf("2. Dequeue Operation\n");
+        printf("3. Print Queue\n");
+        printf("4. Exit...\n");
+        printf("Your Choice: ");
+        scanf("%d", &ch);
+        switch (ch) {
+            case 1:
+                enqueue();
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3:
+                printq();
+                break;
+            case 4:
+                printf("Exiting...");
+                break;
+            default:
+                printf("Invalid Input...");
+        }
+    } while (ch != 4);
+
+    return 0;
+}
+
+
