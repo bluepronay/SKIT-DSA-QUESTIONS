@@ -158,3 +158,175 @@ int main(){
 }while(ch!=4);
 return 0;		
 }
+
+
+
+
+
+
+
+
+
+
+
+
+//By Nawel. Minor Changes. To avoid problems in global variables.
+
+// Stacks using an array
+
+#include <stdio.h>
+
+int stack[15], n, top = -1, x, i;
+
+void push() {
+    if (top == n - 1) {
+        printf("Stack Overflow....");
+    } else {
+        int val;
+        printf("Enter the value: ");
+        scanf("%d", &val);
+        top++;
+        stack[top] = val;
+        printf("%d pushed into the stack....", val);
+    }
+}
+
+void pop() {
+    if (top == -1) {
+        printf("Stack Underflow.....");
+    } else {
+        printf("The value which is going to be popped is %d", stack[top]);
+        top--;
+    }
+}
+
+void peep() {
+    if (top == -1) {
+        printf("Empty Stack....");
+    } else {
+        printf("The Present Stack is:\n");
+        for (int i = top; i >= 0; i--) {
+            printf("%d\t", stack[i]);
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    printf("Enter the size of the stack: ");
+    scanf("%d", &n);
+    int ch;
+    do {
+        printf("\n\n\t\t*******STACK OPERATIONS USING ARRAY*******\n");
+        printf("1. Push Operation\n");
+        printf("2. Pop Operation\n");
+        printf("3. Peep Operation\n");
+        printf("4. Exit...\nYour Choice: ");
+        scanf("%d", &ch);
+        switch (ch) {
+            case 1:
+                push();
+                break;
+            case 2:
+                pop();
+                break;
+            case 3:
+                peep();
+                break;
+            case 4:
+                printf("Exiting....");
+                break;
+            default:
+                printf("Invalid Input....");
+        }
+    } while (ch != 4);
+    return 0;
+}
+
+// Stacks using linked list
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int info;
+    struct Node *link;
+};
+
+struct Node *topLL = NULL, *ptr, *temp;
+
+void pushLL() {
+    if (topLL == NULL) {
+        printf("Enter the value: ");
+        int val;
+        scanf("%d", &val);
+        temp = (struct Node *)malloc(sizeof(struct Node));
+        temp->info = val;
+        temp->link = NULL;
+        topLL = temp;
+    } else {
+        ptr = topLL;
+        printf("Enter the value: ");
+        int val;
+        scanf("%d", &val);
+        temp = (struct Node *)malloc(sizeof(struct Node));
+        temp->info = val;
+        temp->link = ptr;
+        topLL = temp;
+    }
+}
+
+void popLL() {
+    if (topLL == NULL) {
+        printf("Stack Underflow....");
+    } else {
+        ptr = topLL;
+        topLL = ptr->link;
+        printf("The value going to be popped is %d", ptr->info);
+        free(ptr);
+    }
+}
+
+void peepLL() {
+    if (topLL == NULL) {
+        printf("Empty Stack....");
+    } else {
+        printf("The Present Stack is:\n");
+        ptr = topLL;
+        while (ptr != NULL) {
+            printf("%d\t", ptr->info);
+            ptr = ptr->link;
+        }
+    }
+    printf("\n");
+}
+
+int mainLL() {
+    int ch;
+    do {
+        printf("\n\n\t\t*******STACK OPERATIONS USING LINKED LIST*******\n");
+        printf("1. Push Operation\n");
+        printf("2. Pop Operation\n");
+        printf("3. Peep Operation\n");
+        printf("4. Exit...\nYour Choice: ");
+        scanf("%d", &ch);
+        switch (ch) {
+            case 1:
+                pushLL();
+                break;
+            case 2:
+                popLL();
+                break;
+            case 3:
+                peepLL();
+                break;
+            case 4:
+                printf("Exiting....");
+                break;
+            default:
+                printf("Invalid Input....");
+        }
+    } while (ch != 4);
+    return 0;
+}
+
