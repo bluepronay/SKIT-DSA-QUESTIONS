@@ -1,0 +1,65 @@
+
+//1. Bubble Sorting
+
+#include<stdio.h>
+int main(){
+int n;
+printf("Enter the size of the array : ");
+scanf("%d",&n);
+int ar[n];
+printf("Enter the array elements : ");
+for(int i=0;i<n;i++){
+scanf("%d",&ar[i]);
+}
+for(int i=0;i<n-1;i++){
+	for(int j=0;j<n-i-1;j++){
+		if(ar[j]>ar[j+1]){
+			int t=ar[j];
+			ar[j]=ar[j+1];
+			ar[j+1]=t;
+		}
+	}for(int i=0;i<n;i++){
+	printf("%d\t",ar[i]);
+}
+		printf("\n");
+}
+printf("The sorted array is : ");
+for(int i=0;i<n;i++){
+	printf("%d\t",ar[i]);
+}
+	return 0;	
+}
+
+
+//2. Selection Sorting
+
+#include<stdio.h>
+int main(){
+int n;
+printf("Enter the size of the array : ");
+scanf("%d",&n);
+int ar[n];
+printf("Enter the array elements : ");
+for(int i=0;i<n;i++){
+scanf("%d",&ar[i]);
+}
+for(int i=0;i<n-1;i++){
+	for(int j=i+1;j<n;j++){
+		if(ar[i]>ar[j]){
+			int t=ar[i];
+			ar[i]=ar[j];
+			ar[j]=t;
+		}
+	}for(int i=0;i<n;i++){
+	printf("%d\t",ar[i]);
+}
+		printf("\n");
+
+}
+printf("The sorted array is : ");
+for(int i=0;i<n;i++){
+	printf("%d\t",ar[i]);
+}
+	return 0;	
+}
+
